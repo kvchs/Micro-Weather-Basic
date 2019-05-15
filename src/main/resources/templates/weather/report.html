@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--https://blog.csdn.net/u010801439/article/details/71312011/-->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>天气预报</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h3 th:text="${reportModel.title}">天气预报（默认）</h3>
+        <select class="custom-select" id="selectCityName">
+            <option th:each="city:${reportModel.cityList}" th:value="${city.cityZh}" th:text="${city.cityZh}"
+                    th:selected="${city.cityZh eq reportModel.cityName}"></option>
+        </select>
+    </div>
+    <div class="row">
+        <h1 th:text="${reportModel.cityName}" class="text-success">城市名称</h1>
+    </div>
+    <div class="row">
+    <p>
+        空气质量指数：<span th:text="${reportModel.report.airLevel}"></span>
+    </p>
+    </div>
+    <div class="row">
+    <p>
+        当前温度：<span th:text="${reportModel.report.tem}"></span>
+    </p>
+    </div>
+    <div class="row">
+    <p>
+        温馨提示：<span th:text="${reportModel.report.airTips}"></span>
+    </p>
+    </div>
+
+    <div class="row">
+    <div class="card border-info" th:each="hour : ${reportModel.report.hours}">
+        <div class="card-body text-info">
+            <p class="card-text" th:text="${hour.day}">时间</p>
+            <p class="card-text" th:text="${hour.wea}">天气</p>
+            <p class="card-text" th:text="${hour.tem}">温度</p>
+            <p class="card-text" th:text="${hour.win}">风向</p>
+<!--            <p class="card-text" th:text="${hour.win_speed}">风力</p>-->
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<!--<script type="text/javascript" th:src="@{/js/weather/report.js}"/>-->
+<script type="text/javascript">
+    $(function () {
+        $("#selectCityName").change(function () {
+            // var cityName = document.getElementById("selectCityName").options[document.getElementById("selectCityName").selectedIndex].text;
+            // var cityName = $("#selectCityName").options[$("#selectCityName").selectedIndex].text;
+            // var sel=document.getElementById("selectCityName");//select元素的id
+            // var index=sel.selectedIndex;//获取被选中的option的索引
+            // var cityName= sel.options[index].text;//获取相应的option的内容
+            var cityName = $("#selectCityName").val();
+            // var address = $("#selectCityName").find("option:selected").text();
+            var url = '/report/cityName/'+cityName;
+            window.location.href = url;
+        })
+    });
+</script>
+</body>
+</html>
