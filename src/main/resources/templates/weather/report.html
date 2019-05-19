@@ -18,35 +18,47 @@
                     th:selected="${city.cityZh eq reportModel.cityName}"></option>
         </select>
     </div>
+
+
+
+<div th:if="${reportModel.report} != null">
     <div class="row">
         <h1 th:text="${reportModel.cityName}" class="text-success">城市名称</h1>
     </div>
     <div class="row">
-    <p>
-        空气质量指数：<span th:text="${reportModel.report.airLevel}"></span>
-    </p>
+        <p>
+            空气质量指数：<span th:text="${reportModel.report.airLevel}"></span>
+        </p>
     </div>
     <div class="row">
-    <p>
-        当前温度：<span th:text="${reportModel.report.tem}"></span>
-    </p>
+        <p>
+            当前温度：<span th:text="${reportModel.report.tem}"></span>
+        </p>
     </div>
     <div class="row">
-    <p>
-        温馨提示：<span th:text="${reportModel.report.airTips}"></span>
-    </p>
+        <p>
+            温馨提示：<span th:text="${reportModel.report.airTips}"></span>
+        </p>
     </div>
 
     <div class="row">
-    <div class="card border-info" th:each="hour : ${reportModel.report.hours}">
-        <div class="card-body text-info">
-            <p class="card-text" th:text="${hour.day}">时间</p>
-            <p class="card-text" th:text="${hour.wea}">天气</p>
-            <p class="card-text" th:text="${hour.tem}">温度</p>
-            <p class="card-text" th:text="${hour.win}">风向</p>
-<!--            <p class="card-text" th:text="${hour.win_speed}">风力</p>-->
+        <div class="card border-info" th:each="hour : ${reportModel.report.hours}">
+            <div class="card-body text-info">
+                <p class="card-text" th:text="${hour.day}">时间</p>
+                <p class="card-text" th:text="${hour.wea}">天气</p>
+                <p class="card-text" th:text="${hour.tem}">温度</p>
+                <p class="card-text" th:text="${hour.win}">风向</p>
+                <!--            <p class="card-text" th:text="${hour.win_speed}">风力</p>-->
+            </div>
         </div>
     </div>
+</div>
+</div>
+
+
+<div th:if="${reportModel.report}==null">
+    <div class="row">
+        <p >天气数据暂时不可用</p>
     </div>
 </div>
 
